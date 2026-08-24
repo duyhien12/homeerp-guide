@@ -409,6 +409,7 @@
       <button class="role-btn" data-role="td">Thiết kế</button>
       <button class="role-btn" data-role="ql">Quản lý dự án</button>
       <button class="role-btn" data-role="kt">Kế toán</button>
+      <button class="role-btn" data-role="xn">Xưởng nội thất</button>
     </div>
 
     <section>
@@ -448,22 +449,24 @@ const FLOW = [
   {n:1, t:"CRM / Khảo sát", d:"Tiếp nhận lead, ghi nhật ký", role:["kd"]},
   {n:2, t:"Thiết kế", d:"Lên phương án, upload bản vẽ", role:["td"]},
   {n:3, t:"Ký hợp đồng", d:"Thương thảo, tạo hợp đồng", role:["kd","ql"]},
-  {n:4, t:"Thi công", d:"Phiếu công việc, vật tư", role:["ql","td"]},
-  {n:5, t:"Thu tiền", d:"Các đợt thanh toán theo HĐ", role:["kt","ql"]},
-  {n:6, t:"Quyết toán", d:"Đối chiếu thu chi, lãi/lỗ", role:["kt","ql"]},
-  {n:7, t:"Bảo hành", d:"Chăm sóc khách hàng hậu mãi", role:["kd","ql"]},
+  {n:4, t:"Thi công", d:"Phiếu công việc, vật tư", role:["ql","td","xn"]},
+  {n:5, t:"Sản xuất", d:"Gia công tại xưởng, đóng gói", role:["xn"]},
+  {n:6, t:"Thu tiền", d:"Các đợt thanh toán theo HĐ", role:["kt","ql"]},
+  {n:7, t:"Quyết toán", d:"Đối chiếu thu chi, lãi/lỗ", role:["kt","ql"]},
+  {n:8, t:"Bảo hành", d:"Chăm sóc khách hàng hậu mãi", role:["kd","ql"]},
 ];
 
 const MENU = [
-  {ic:"📊", t:"Dashboard", d:"Tổng quan KPI công ty", role:["kd","td","ql","kt"]},
+  {ic:"📊", t:"Dashboard", d:"Tổng quan KPI công ty", role:["kd","td","ql","kt","xn"]},
   {ic:"🔄", t:"Pipeline", d:"Cơ hội kinh doanh, 6 giai đoạn", role:["kd","ql"]},
   {ic:"👥", t:"Khách hàng", d:"Danh sách & hồ sơ khách hàng", role:["kd","ql"]},
-  {ic:"🏗️", t:"Dự án", d:"Quản lý dự án thi công", role:["td","ql"]},
-  {ic:"📦", t:"Sản phẩm", d:"Danh mục sản phẩm, vật tư", role:["td","ql"]},
+  {ic:"🏗️", t:"Dự án", d:"Quản lý dự án thi công", role:["td","ql","xn"]},
+  {ic:"📦", t:"Sản phẩm", d:"Danh mục sản phẩm, vật tư", role:["td","ql","xn"]},
+  {ic:"🪚", t:"Xưởng sản xuất", d:"Phiếu gia công, tiến độ đóng đồ", role:["xn","ql"]},
   {ic:"📋", t:"Báo giá", d:"Lập & quản lý báo giá", role:["kd"]},
   {ic:"💳", t:"Thu tiền", d:"Theo dõi thu tiền theo hợp đồng", role:["kt","ql"]},
   {ic:"📑", t:"Chi phí", d:"Chi phí phát sinh toàn công ty", role:["kt","ql"]},
-  {ic:"🛒", t:"Mua sắm VT", d:"Đơn mua hàng & nhà cung cấp", role:["kt","ql"]},
+  {ic:"🛒", t:"Mua sắm VT", d:"Đơn mua hàng & nhà cung cấp", role:["kt","ql","xn"]},
 ];
 
 const MODULES = [
@@ -550,7 +553,7 @@ const MODULES = [
     `
   },
   {
-    code:"M-05", title:"Quản lý dự án", role:["td","ql"],
+    code:"M-05", title:"Quản lý dự án", role:["td","ql","xn"],
     tags:["Thiết kế","Quản lý DA","12 tab"],
     content:`
       <h5>Trang chi tiết dự án hiển thị</h5>
@@ -607,7 +610,7 @@ const MODULES = [
     `
   },
   {
-    code:"M-08", title:"Mua sắm vật tư", role:["kt","ql","td"],
+    code:"M-08", title:"Mua sắm vật tư", role:["kt","ql","td","xn"],
     tags:["Kế toán","Quản lý DA"],
     content:`
       <ul class="steps">
@@ -624,6 +627,30 @@ const MODULES = [
       </ul>
     `
   },
+  {
+    code:"M-09", title:"Xưởng nội thất — sản xuất & gia công", role:["xn","ql"],
+    tags:["Xưởng nội thất"],
+    content:`
+      <h5>Tiếp nhận phiếu công việc từ dự án</h5>
+      <ul class="steps">
+        <li><span class="snum">1</span>Vào dự án liên quan → tab <b>Phiếu công việc</b></li>
+        <li><span class="snum">2</span>Xem các phiếu được giao cho tổ/xưởng của mình, kèm hạn hoàn thành và mức ưu tiên</li>
+        <li><span class="snum">3</span>Cập nhật trạng thái phiếu qua dropdown: Chờ làm → Đang làm → Hoàn thành</li>
+      </ul>
+      <h5>Theo dõi vật tư sản xuất</h5>
+      <ul class="steps">
+        <li><span class="snum">•</span>Xem kế hoạch vật tư của dự án ở tab <b>Vật tư</b> — đối chiếu số lượng cần dùng để gia công</li>
+        <li><span class="snum">•</span>Nếu thiếu vật tư, báo Quản lý dự án tạo đơn trong mục <b>Mua sắm VT</b></li>
+      </ul>
+      <h5>Cập nhật tiến độ đóng đồ</h5>
+      <ul class="steps">
+        <li><span class="snum">1</span>Vào tab <b>Tiến độ</b> của dự án</li>
+        <li><span class="snum">2</span>Cập nhật % hoàn thành cho từng hạng mục sản xuất (cắt, ráp, sơn, đóng gói...)</li>
+        <li><span class="snum">3</span>Đính kèm ảnh sản phẩm hoàn thiện vào tab <b>Tài liệu</b> nếu cần nghiệm thu</li>
+      </ul>
+      <div class="note-box">Cập nhật trạng thái phiếu công việc ngay khi bắt đầu và khi hoàn thành — Quản lý dự án và Kinh doanh dựa vào đây để báo tiến độ cho khách hàng.</div>
+    `
+  },
 ];
 
 const CHECKLIST = [
@@ -631,6 +658,7 @@ const CHECKLIST = [
   {role:"td", h:"Thiết kế", items:["Kiểm tra phiếu công việc được giao","Upload bản vẽ mới lên hệ thống","Cập nhật tiến độ thiết kế"]},
   {role:"ql", h:"Quản lý dự án", items:["Kiểm tra Dashboard tổng quan","Cập nhật milestone dự án","Duyệt các phiếu chi phí chờ xử lý"]},
   {role:"kt", h:"Kế toán", items:["Kiểm tra mục Thu tiền","Duyệt chi phí phát sinh","Đối soát đơn mua sắm vật tư"]},
+  {role:"xn", h:"Xưởng nội thất", items:["Kiểm tra phiếu công việc sản xuất trong ngày","Cập nhật trạng thái gia công (đang làm/hoàn thành)","Đối chiếu vật tư thực tế với kế hoạch","Báo thiếu vật tư sớm cho Quản lý dự án"]},
 ];
 
 const RULES = [
