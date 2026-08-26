@@ -420,6 +420,20 @@
     font-size:12.5px;
     color:var(--ink-soft);
   }
+  .wf-video{
+    margin:0 18px 16px;
+    border-radius:8px;
+    overflow:hidden;
+    border:1px solid var(--line);
+    background:#000;
+    position:relative;
+    aspect-ratio:16/9;
+  }
+  .wf-video iframe{
+    position:absolute; inset:0;
+    width:100%; height:100%;
+    border:0;
+  }
 
   footer{
     text-align:center;
@@ -769,6 +783,7 @@ const WORKFLOWS = [
   },
   {
     role:"xn", h:"Xưởng nội thất — từ nhận phiếu đến giao lắp đặt",
+    video:"MqDCFcM-6rY",
     steps:[
       {t:"Nhận phiếu công việc", d:"Kiểm tra phiếu công việc được Quản lý dự án giao trong tab Phiếu công việc"},
       {t:"Kiểm tra vật tư", d:"Đối chiếu kế hoạch vật tư với vật tư thực tế, báo thiếu nếu có"},
@@ -844,6 +859,7 @@ function renderWorkflows(active){
   document.getElementById("workflowList").innerHTML = list.map(w => `
     <div class="wf-card">
       <div class="wf-head"><span class="wf-dot"></span><h3>${w.h}</h3></div>
+      ${w.video ? `<div class="wf-video"><iframe src="https://www.youtube.com/embed/${w.video}" title="Video hướng dẫn: ${w.h}" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe></div>` : ""}
       <div class="wf-steps">
         ${w.steps.map((s,i) => `
           <div class="wf-step">
